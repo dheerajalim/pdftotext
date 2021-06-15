@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+List of Files
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block heading %} PDF to Text Conversion {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            Hi, {{username}}
+        </div>
+
+        <div class="pull-right">
+            <form method="POST" class="from-group" action="{% url 'extraction:pdf_to_text_download_api' %}">
+                {% csrf_token %}
+                <input type="hidden" name="download_file_path" value={{textfile}}>
+                <button type="submit" class="btn btn-success btn-sm">Download</button>
+            </form>
+        </div>
+        <div class="pull-right">
+            <form method="POST" class="from-group" action="{% url 'extraction:pdf_to_text_upload' %}">
+                {% csrf_token %}
+                <input type="hidden" name="upload_file_path" value={{textfile}}>
+                <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+            </form>
+        </div>
+        <div class="pull-right">
+            <form method="POST" class="from-group" action="{% url 'authentication:user_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="md-form">
+    {% if detail %}
+    <div class="alert alert-success" role="alert">
+        <div>{{detail}}</div>
+
+    </div>
+    {% endif %}
+    <label for="form7">PDF to Text Conversion</label>
+    <textarea id="form7" class="md-textarea form-control" rows="28">{{ extracted_text }}</textarea>
+
+</div>
+
+{% endblock %}

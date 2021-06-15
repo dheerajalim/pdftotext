@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+List of Files
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block heading %} List of Files {% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      Hi, {{username}}
+    </div>
+
+    <div class="pull-right">
+       <form method="POST" class="from-group" action="{% url 'authentication:user_logout' %}">
+         {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+       </form>
+    </div>
+  </div>
+</div>
+    {% if detail %}
+    <div class="alert alert-danger" role="alert">
+        <div>{{detail}}</div>
+
+    </div>
+    {% endif %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Filename</th>
+        <th scope="col">Size</th>
+        <th scope="col">Extract</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+
+    {% for file in files %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{file.file_name}}</td>
+        <td>{{file.file_size}} kB</td>
+        <td>
+          <form method="POST" action="{% url 'extraction:extraction_file' %}">
+            {% csrf_token %}
+            <input type="hidden" name="filename" value={{file.file}}>
+            <button type="submit" class="btn btn-success">Extract</button>
+          </form>
+        </td>
+      </tr>
+
+    </tbody>
+  {% endfor %}
+  </table>
+{% endblock %}

@@ -1,0 +1,26 @@
+
+{% extends "base/base.html" %}
+
+{% block title %}
+Login Here
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block heading %} Login {% endblock %}
+{% block error %}
+{% if error %}
+<div class="alert alert-danger" role="alert">
+	<div>{{error.msg}}</div>
+	<div>{{error.detail}}</div>
+
+</div>
+{% endif %}
+{% endblock %}
+{% block content %}
+     <form method="POST" class="from-group">
+	{% csrf_token %}
+	{{form|crispy}}
+	<p>Don't have an account? Create one <a href="{% url 'authentication:user_registration' %}">here</a></p>
+	<button type="submit" class="btn btn-success">Login</button>	
+    </form>
+{% endblock %}

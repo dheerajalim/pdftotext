@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+Info Page
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block heading %} Message {% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+
+    <div class="pull-right">
+       <form method="POST" class="from-group" action="/auth/logout">
+         {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+       </form>
+    </div>
+  </div>
+</div>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        <div>{{error}}</div>
+
+    </div>
+    {% endif %}
+
+    {% if message %}
+    <div class="alert alert-success" role="alert">
+        <div>{{message}}</div>
+
+    </div>
+    {% endif %}
+
+{% endblock %}

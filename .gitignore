@@ -1,0 +1,9 @@
+.git/
+.idea/
+*.pyc
+authentication/*.pyc
+extraction/*.pyc
+odf_extractor/*.pyc
+extraction/files/pdf_images/*
+extraction/files/text_files/*
+extraction/files/tmp/*
